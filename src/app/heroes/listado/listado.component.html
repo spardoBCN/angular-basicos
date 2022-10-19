@@ -1,0 +1,71 @@
+<p>Listado de Heroes</p>
+
+<!-- vamos a crear un listado "order list"-->
+<ul>
+    <!--
+    <li> {{heroes[0]}} </li>
+    <li> {{heroes[1]}} </li>
+    <li> {{heroes[2]}} </li>
+    <li> {{heroes[3]}} </li>
+    
+    -- hay ciertos problemas con esta idea anterior: 
+        1- puedo no saber cuantos elementos hay en este Array
+        2- o puede que uno se modifique, o que uno no venga, o que el primero no esté, etc...
+    -->
+
+    <!-- *ngFor
+       -- Aquí es donde viene la directiva "ngfor", sería muy parecido a un ciclo FOR
+        1- vamos a declarar una variable -> ej: "let heroe"
+        2- ponemos "OF" 
+        3- ponemos "heroes", esto es la propiedad que tenemos definida dentro del "class ListadoComponent"
+
+        - "heroe" es la referencia a cada uno de los valores o iteraciones que van a estar dentro de esta propiedad "heroes"
+    
+        -- en caso de querer obtener el índex, añadiríamos: let i= index
+    
+        NOTA: la directiva *ngFor vendría a ser el famoso bucle FOR de java
+    -->
+    <li *ngFor="let heroe of heroes; let i= index">
+        Item {{i + 1}}: {{heroe}}
+    </li>
+</ul>
+
+<!-- *ngIf
+    NOTA: la directiva *ngIf vendría a ser la famosa condición IF que nos devuelve un TRUE/FALSE de java
+
+    -- el siguiente trozo de código se mostrará cuando ese *ngIF=TRUE
+
+    // <div *ngIf="heroeBorrado !== ''"> 
+    <div *ngIf="heroeBorrado"> // si viene informado "heroeBorrado", muestro
+        
+            // <h3>Heroe borrado:</h3>
+            // <span> {{heroeBorrado}} </span>
+        
+        <h3>Heroe borrado: <small> {{heroeBorrado}} </small></h3>
+    </div>
+        
+    <div *ngIf="!heroeBorrado"> // escribiendo esto, sería la negación de esta condición. Vendría a ser, si viene "heroeBorrado" vacío, null, underfind... 
+        <h3>No ha borrado nada.</h3>
+    </div>
+        
+--> 
+
+<!-- *ngIf-else y ng-template
+    NOTA: la directiva *ngIf-else vendría a ser la famosa condición IF/ELSE que nos devuelve un TRUE/FALSE de java
+
+    -- en pocas palabras, lo que el siguiente código dice es: si no se cumple la condición "*ngIf=heroeBorrado" , entonces que muestre el Template "noBorrado"
+-->
+<div *ngIf="heroeBorrado; else noBorrado"> <!-- después del ELSE ha de venir una referencia LOCAL. Esta referencia LOCAL se identifica mediate el símbolo "#", y siempre son del lado del Template "HTML" -->
+    <h3>Heroe borrado: <small> {{heroeBorrado}} </small></h3>
+</div>
+
+<ng-template #noBorrado> <!-- este ng-template va a mostrar el siguiente contenido basandose en una condición dada "*ngIf"-->
+    <h3>No ha borrado nada.</h3>
+</ng-template>
+        
+<button (click)="borrarHeroe()">
+    Borrar
+</button>
+
+
+
